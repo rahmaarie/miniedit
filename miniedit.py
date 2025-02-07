@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image, ImageEnhance
 import io
-import pyheif
+import pillow_heif
 from collections import deque
 
 # Setup halaman
