@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image, ImageEnhance
 import io
-import pillow_heif
+import pyheif
 from collections import deque
 
 # Setup halaman
@@ -21,13 +21,21 @@ uploaded_file = st.file_uploader("Pilih gambar...", type=["jpg", "png", "jpeg", 
 
 if uploaded_file:
     file_extension = uploaded_file.name.split(".")[-1].lower()
+def heic_to_pil(image_file):
+    heif_file = pyheif.read(image_file.read())
+    image = Image.frombytes(
+        heif_file.mode, 
+        heif_file.size, 
+        heif_file.data)
+    return image
     
-    if file_extension == "heic":
-        heif_file = pillow_heif.open_heif(uploaded_file)
-        image = Image.frombytes(heif_file.mode, heif_file.size, heif_file.data)
-    else:
-        image = Image.open(uploaded_file)
+if file_extension == "heic":
+    image = heic_to_pil(uploaded_file)
+else:
+    image = Image.open(uploaded_file)
 
+    # Tampilkan gambar
+    st.image(image, caption="Gambar yang Diupload", use_column_width=True)
     # Reset state jika gambar baru diunggah
     if "current_image" not in st.session_state or st.session_state.current_image is None:
         st.session_state.current_image = image.copy()
