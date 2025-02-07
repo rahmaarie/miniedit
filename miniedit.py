@@ -90,7 +90,7 @@ if uploaded_file:
         st.session_state.current_image = edited_image.copy()
 
     # Tampilkan hasil editan
-    st.image(st.session_state.current_image, caption="Gambar yang Diedit", use_column_width=True)
+    st.image(st.session_state.current_image, caption="Gambar yang Diedit", use_container_width=True)
 
     # Tombol Undo dan Redo
     col1, col2 = st.columns(2)
