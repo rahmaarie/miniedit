@@ -22,7 +22,7 @@ if uploaded_file:
     image = Image.open(uploaded_file)  # Hanya dijalankan jika ada file yang diunggah
 
     # Tampilkan gambar
-    st.image(image, caption="Gambar yang Diupload", use_column_width=True)
+    st.image(image, caption="Gambar yang Diupload", use_container_width=True)
     # Reset state jika gambar baru diunggah
     if "current_image" not in st.session_state or st.session_state.current_image is None:
         st.session_state.current_image = image.copy()
